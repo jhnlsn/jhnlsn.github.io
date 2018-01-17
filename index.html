@@ -1,1 +1,34 @@
-Hello World
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css" />
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                getCoin();
+
+                setInterval(getCoin, 60000);
+
+                function getCoin() {
+                    $.getJSON('https://api.coindesk.com/v1/bpi/currentprice.json').then(function(data){
+                        console.log(data);
+                        $('#bt-price').text(data.bpi.USD.rate);
+                        $('#btc-updated').text(data.time.updated);
+                    });
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <main class="container">
+            <div style="text-align: center; font-size: 3em;">
+                <i class="fab fa-bitcoin"></i> <span id="bt-price"></span>
+            </div>
+        </main>
+        <div class="fixed-bottom bg-dark">
+            <span style="font-size: .8em; padding-top: .5rem; padding-bottom: .5rem;" class="float-right text-light align-middle" id="btc-updated"></span>
+        </div>
+    </body>
+</html>
